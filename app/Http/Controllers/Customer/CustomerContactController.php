@@ -16,7 +16,7 @@ class CustomerContactController extends Controller
 
     public function index(): View
     {
-        // Untuk customer yang login, tampilkan kontak mereka
+        // buat customer yang login, tampilin kontak mereka ya bang
         $contacts = $this->contactService->getPaginatedContacts(15);
         
         return view('customer.contacts.index', compact('contacts'));

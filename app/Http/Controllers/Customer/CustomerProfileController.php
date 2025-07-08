@@ -48,7 +48,7 @@ class CustomerProfileController extends Controller
         $userUpdated = $this->userService->updateUser($user->id, $userData);
         
         $customer = $this->customerService->getCustomerByUserId($user->id);
-        $customerData = $request->only(['phone_number', 'customer_notes']);
+        $customerData = $request->only(['phone_number']);
         
         $customerUpdated = true;
         if ($customer) {

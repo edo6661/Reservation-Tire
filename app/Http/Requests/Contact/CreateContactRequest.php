@@ -1,28 +1,32 @@
 <?php
-
 namespace App\Http\Requests\Contact;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateContactRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'text' => ['required', 'string'],
+            'sender' => ['required', 'email'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Judul pesan wajib diisi.',
+            'title.max' => 'Judul maksimal 255 karakter.',
+            'text.required' => 'Isi pesan wajib diisi.',
+            'sender.required' => 'Email pengirim wajib diisi.',
+            'sender.email' => 'Format email tidak valid.',
         ];
     }
 }

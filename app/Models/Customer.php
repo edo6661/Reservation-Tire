@@ -14,7 +14,6 @@ class Customer extends Model
     protected $fillable = [
         'user_id',
         'phone_number',
-        'customer_notes',
     ];
 
     public function user(): BelongsTo
