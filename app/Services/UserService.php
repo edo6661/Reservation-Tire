@@ -45,7 +45,9 @@ class UserService implements UserServiceInterface
             return false;
         }
 
-        if (isset($data['password'])) {
+       if (empty($data['password'])) {
+            unset($data['password']);
+        } else {
             $data['password'] = Hash::make($data['password']);
         }
 

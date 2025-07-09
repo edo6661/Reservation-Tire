@@ -21,6 +21,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
 use App\Services\AuthService;
 use App\Services\AuthServiceInterface;
+use App\Services\UserService;
 use App\Services\UserServiceInterface;
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
 
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
-        $this->app->bind(UserServiceInterface::class, AuthService::class);
+        $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(CustomerServiceInterface::class, CustomerService::class);
         $this->app->bind(ReservationServiceInterface::class, ReservationService::class);
         $this->app->bind(ContactServiceInterface::class, ContactService::class);

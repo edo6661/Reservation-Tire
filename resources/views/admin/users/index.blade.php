@@ -75,9 +75,6 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Terdaftar
                                 </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Status
-                                </th>
                                 <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Aksi
                                 </th>
@@ -115,11 +112,6 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $user->created_at->format('d M Y') }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                            Aktif
-                                        </span>
-                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex items-center justify-end space-x-2">
                                             <a href="{{ route('admin.users.show', $user->id) }}" 
@@ -131,18 +123,11 @@
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" 
-                                                  class="inline"
-                                                  x-data="{ 
-                                                      confirmDelete() {
-                                                          if (confirm('Apakah Anda yakin ingin menghapus user ini?')) {
-                                                              this.$el.submit();
-                                                          }
-                                                      }
-                                                  }">
+                                                class="inline"
+                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" 
-                                                        @click="confirmDelete()"
+                                                <button type="submit" 
                                                         class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition">
                                                     <i class="fas fa-trash"></i>
                                                 </button>

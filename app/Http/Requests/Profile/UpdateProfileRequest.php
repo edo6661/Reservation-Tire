@@ -13,12 +13,23 @@ class UpdateProfileRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
+         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email,' . auth()->id()],
-            'password' => ['nullable', 'confirmed', Password::defaults()],
+            'password' => ['nullable', 'confirmed', 'min:8', Password::defaults()],
+            'password_confirmation' => ['nullable', 'same:password'],
         ];
     }
+    protected function prepareForValidation()
+    {
+        if (empty($this->password)) {
+            $this->merge([
+                'password' => null,
+                'password_confirmation' => null,
+            ]);
+        }
+    }
+
 
     public function messages(): array
     {
@@ -29,6 +40,7 @@ class UpdateProfileRequest extends FormRequest
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email sudah terdaftar.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            
         ];
     }
 }
