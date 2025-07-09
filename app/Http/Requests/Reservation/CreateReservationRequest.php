@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Http\Requests\Reservation;
 
+use App\Models\ReservationAvailability;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateReservationRequest extends FormRequest
@@ -20,6 +23,21 @@ class CreateReservationRequest extends FormRequest
             'simple_questionnaire' => ['nullable', 'string'],
             'customer_id' => ['sometimes', 'exists:customers,id'],
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->datetime) {
+                $datetime = Carbon::parse($this->datetime);
+                $date = $datetime->format('Y-m-d');
+                $time = $datetime->format('H:i');
+                
+                if (!ReservationAvailability::isSlotAvailable($date, $time)) {
+                    $validator->errors()->add('datetime', 'Slot waktu yang dipilih tidak tersedia atau sudah dipesan.');
+                }
+            }
+        });
     }
 
     public function messages(): array

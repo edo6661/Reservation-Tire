@@ -29,7 +29,7 @@ class ReservationRepository implements ReservationRepositoryInterface
     public function getAllPaginated(int $perPage = 15): LengthAwarePaginator
     {
         return $this->model->with(['customer.user'])
-            ->orderBy('datetime', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate($perPage);
     }
 

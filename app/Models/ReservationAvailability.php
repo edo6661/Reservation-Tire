@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Enums\ReservationStatus;
-use App\Models\Reservation;
 use Carbon\Carbon;
+use App\Enums\ReservationStatus;
+
 class ReservationAvailability extends Model
 {
     use HasFactory;
@@ -19,7 +19,7 @@ class ReservationAvailability extends Model
         'is_available',
         'reason',
     ];
-
+    
     protected $casts = [
         'date' => 'date',
         'time' => 'datetime:H:i',
@@ -41,21 +41,24 @@ class ReservationAvailability extends Model
         return $query->where('time', $time);
     }
 
-    public static function isSlotAvailable($date, $time): bool
+    public static function isSlotAvailable($date, $time, $excludeReservationId = null): bool
     {
-        
         $availability = self::where('date', $date)
             ->where('time', $time)
             ->first();
 
-        if ($availability) {
-            return $availability->is_available;
+        if ($availability && !$availability->is_available) {
+            return false;
         }
 
-        
-        $existingReservation = Reservation::where('datetime', Carbon::parse($date . ' ' . $time))
-            ->whereIn('status', [ReservationStatus::APPLICATION, ReservationStatus::CONFIRMED])
-            ->exists();
+        $query = Reservation::where('datetime', Carbon::parse($date . ' ' . $time))
+            ->whereIn('status', [ReservationStatus::APPLICATION, ReservationStatus::CONFIRMED]);
+
+        if ($excludeReservationId) {
+            $query->where('id', '!=', $excludeReservationId);
+        }
+
+        $existingReservation = $query->exists();
 
         return !$existingReservation;
     }

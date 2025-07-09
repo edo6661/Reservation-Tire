@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('customer_contact')->nullable();
             $table->text('management_notes')->nullable();
             $table->text('simple_questionnaire')->nullable();
-            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+            $table->foreignId('customer_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

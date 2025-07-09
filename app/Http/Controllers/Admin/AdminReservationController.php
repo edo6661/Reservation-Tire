@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\ReservationServiceInterface;
+use App\Services\UserServiceInterface;
+use App\Enums\UserRole;
 use App\Http\Requests\Reservation\CreateReservationRequest;
 use App\Http\Requests\Reservation\UpdateReservationRequest;
-use App\Services\ReservationServiceInterface;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AdminReservationController extends Controller
 {
     public function __construct(
-        protected ReservationServiceInterface $reservationService
+        protected ReservationServiceInterface $reservationService,
+        protected UserServiceInterface $userService
     ) {}
-
     public function index(): View
     {
         $reservations = $this->reservationService->getPaginatedReservations(15);
@@ -23,25 +25,73 @@ class AdminReservationController extends Controller
         return view('admin.reservations.index', compact('reservations'));
     }
 
-    public function create(): View
+    public function create()
     {
-        return view('admin.reservations.create');
+        
+        $customers = $this->userService->getUsersByRole(UserRole::CUSTOMER, 999);
+        
+        return view('admin.reservations.create', compact('customers'));
     }
 
-    public function store(CreateReservationRequest $request): RedirectResponse
+    public function store(CreateReservationRequest $request)
     {
-        $data = $request->validated();
-        
         try {
-            $this->reservationService->createReservation($data);
+            $validatedData = $request->validated();
             
-            return redirect()->route('admin.reservations.index')
+            if (empty($validatedData['customer_id'])) {
+                unset($validatedData['customer_id']);
+            }
+            
+            $reservation = $this->reservationService->createReservation($validatedData);
+            
+            return redirect()
+                ->route('admin.reservations.show', $reservation->id)
                 ->with('success', 'Reservasi berhasil dibuat.');
+                
         } catch (\Exception $e) {
-            return back()->withErrors(['error' => $e->getMessage()])->withInput();
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
         }
     }
 
+    public function edit($id)
+    {
+        try {
+            $reservation = $this->reservationService->getReservationById($id);
+            
+            
+            $customers = $this->userService->getUsersByRole(UserRole::CUSTOMER, 999);
+            
+            return view('admin.reservations.edit', compact('reservation', 'customers'));
+            
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.reservations.index')
+                ->with('error', $e->getMessage());
+        }
+    }
+
+    public function update(UpdateReservationRequest $request, $id)
+    {
+        try {
+            $validatedData = $request->validated();
+            
+            $reservation = $this->reservationService->updateReservation($id, $validatedData);
+            
+            return redirect()
+                ->route('admin.reservations.show', $reservation->id)
+                ->with('success', 'Reservasi berhasil diperbarui.');
+                
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
+        }
+    }
+     
     public function show(int $id): View
     {
         $reservation = $this->reservationService->getReservationById($id);
@@ -49,34 +99,14 @@ class AdminReservationController extends Controller
         return view('admin.reservations.show', compact('reservation'));
     }
 
-    public function edit(int $id): View
-    {
-        $reservation = $this->reservationService->getReservationById($id);
-        
-        return view('admin.reservations.edit', compact('reservation'));
-    }
-
-    public function update(UpdateReservationRequest $request, int $id): RedirectResponse
-    {
-        $data = $request->validated();
-        
-        try {
-            $this->reservationService->updateReservation($id, $data);
-            
-            return redirect()->route('admin.reservations.index')
-                ->with('success', 'Reservasi berhasil diupdate.');
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => $e->getMessage()])->withInput();
-        }
-    }
 
     public function destroy(int $id): RedirectResponse
     {
         try {
-            $this->reservationService->cancelReservation($id);
+            $this->reservationService->delete($id);
             
             return redirect()->route('admin.reservations.index')
-                ->with('success', 'Reservasi berhasil dibatalkan.');
+                ->with('success', 'Reservasi berhasil dihapus.');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }

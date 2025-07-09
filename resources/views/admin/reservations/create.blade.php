@@ -111,7 +111,11 @@
                         <select name="customer_id" id="customer_id" 
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             <option value="">Pilih pelanggan...</option>
-                            {{-- Customer options will be populated by controller --}}
+                            @foreach($customers as $customer)
+                                <option value="{{ $customer->customer->id }}" {{ old('customer_id') == $customer->customer->id ? 'selected' : '' }}>
+                                    {{ $customer->name }} ({{ $customer->email }})
+                                </option>
+                            @endforeach
                         </select>
                         <p class="mt-1 text-sm text-gray-500">Pilih pelanggan yang sudah terdaftar atau biarkan kosong untuk pelanggan baru</p>
                     </div>
@@ -159,6 +163,10 @@
                 selectedDate: '',
                 selectedTime: '',
                 availableSlots: [],
+                init() {
+                    this.selectedDate = `{{ old('date', date('Y-m-d')) }}`;
+                    this.checkSlots();
+                },
                 
                 async checkSlots() {
                     if (!this.selectedDate) {

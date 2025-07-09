@@ -24,6 +24,7 @@ interface ReservationServiceInterface
     public function rejectReservation(int $id): Reservation;
     public function checkAvailability(string $date, string $time): bool;
     public function getAvailableSlots(string $date): array;
+    public function delete(int $id): bool;
 }
 class ReservationService implements ReservationServiceInterface
 {
@@ -55,12 +56,17 @@ class ReservationService implements ReservationServiceInterface
             $date = $datetime->format('Y-m-d');
             $time = $datetime->format('H:i');
 
-            // Check availability
+            
             if (!$this->checkAvailability($date, $time)) {
-                throw new ReservationNotAvailableException("Slot waktu {$date} {$time} tidak tersedia.");
+                throw new ReservationNotAvailableException("Slot waktu {$date} {$time} tidak tersedia atau sudah dipesan.");
             }
 
             $data['status'] = ReservationStatus::APPLICATION;
+            
+            if (!isset($data['customer_id']) || empty($data['customer_id'])) {
+                $data['customer_id'] = null;
+            }
+
             return $this->reservationRepository->create($data);
         });
     }
@@ -70,17 +76,18 @@ class ReservationService implements ReservationServiceInterface
         return DB::transaction(function () use ($id, $data) {
             $reservation = $this->getReservationById($id);
             
-            // If datetime is being changed, check availability
             if (isset($data['datetime'])) {
                 $newDatetime = Carbon::parse($data['datetime']);
                 $oldDatetime = $reservation->datetime;
+                
                 
                 if (!$newDatetime->equalTo($oldDatetime)) {
                     $date = $newDatetime->format('Y-m-d');
                     $time = $newDatetime->format('H:i');
                     
-                    if (!$this->checkAvailability($date, $time)) {
-                        throw new ReservationNotAvailableException("Slot waktu {$date} {$time} tidak tersedia.");
+                    
+                    if (!$this->checkAvailability($date, $time, $id)) {
+                        throw new ReservationNotAvailableException("Slot waktu {$date} {$time} tidak tersedia atau sudah dipesan.");
                     }
                 }
             }
@@ -94,7 +101,7 @@ class ReservationService implements ReservationServiceInterface
     {
         return DB::transaction(function () use ($id) {
             $reservation = $this->getReservationById($id);
-            
+        
             if (!$reservation->canBeCancelled()) {
                 throw new \Exception("Reservation ini tidak dapat dibatalkan.");
             }
@@ -131,13 +138,18 @@ class ReservationService implements ReservationServiceInterface
         });
     }
 
-    public function checkAvailability(string $date, string $time): bool
+    public function checkAvailability(string $date, string $time, ?int $excludeReservationId = null): bool
     {
-        return ReservationAvailability::isSlotAvailable($date, $time);
+        return ReservationAvailability::isSlotAvailable($date, $time, $excludeReservationId);
     }
 
     public function getAvailableSlots(string $date): array
     {
         return ReservationAvailability::getAvailableSlots($date);
+    }
+    public function delete(int $id): bool
+    {
+        $reservation = $this->getReservationById($id);
+        return $this->reservationRepository->delete($reservation);
     }
 }
