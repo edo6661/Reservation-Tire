@@ -13,7 +13,7 @@
         @endif
     </head>
     <body class="bg-gray-100">
-        <div class="flex min-h-screen" x-data="{ sidebarOpen: true }">
+        <div class="flex min-h-screen" x-data="{ sidebarOpen: true }" x-cloak>
             <div class="bg-white shadow-lg fixed h-full z-30 transition-all duration-300 ease-in-out" 
                  :class="sidebarOpen ? 'w-64' : 'w-16'">
                 <div class="flex items-center justify-between h-16 px-4 bg-blue-600 text-white">

@@ -14,3 +14,6 @@
 @utility container {
     @apply mx-auto px-6 py-4;
 }
+[x-cloak] {
+    display: none !important;
+}
