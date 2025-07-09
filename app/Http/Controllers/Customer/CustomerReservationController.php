@@ -42,7 +42,6 @@ class CustomerReservationController extends Controller
     {
         $data = $request->validated();
         
-        // Get current customer
         $user = $this->authService->getCurrentUser();
         $customer = $this->customerService->getCustomerByUserId($user->id);
         

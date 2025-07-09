@@ -64,7 +64,7 @@
                     <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
                             <h3 class="text-lg font-medium text-gray-900">Reservasi Saya</h3>
-                            <a href="{{ route('reservations.create') }}" 
+                            <a href="{{ route('customer.reservations.create') }}" 
                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                 <i class="fas fa-plus mr-2"></i>
                                 Buat Reservasi
@@ -128,7 +128,7 @@
                                     </div>
                                     <h3 class="text-lg font-medium text-gray-900 mb-2">Belum ada reservasi</h3>
                                     <p class="text-gray-500 mb-4">Anda belum memiliki reservasi apapun.</p>
-                                    <a href="{{ route('reservations.create') }}" 
+                                    <a href="{{ route('customer.reservations.create') }}" 
                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                                         <i class="fas fa-plus mr-2"></i>
                                         Buat Reservasi Pertama
@@ -139,7 +139,7 @@
                         
                         @if($reservations->count() > 5)
                             <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
-                                <a href="{{ route('reservations.index') }}" 
+                                <a href="{{ route('customer.reservations.index') }}" 
                                    class="text-sm text-blue-600 hover:text-blue-800 font-medium">
                                     Lihat semua reservasi ({{ $reservations->count() }}) →
                                 </a>
@@ -182,7 +182,7 @@
                             @endif
                             
                             <div class="mt-4 pt-4 border-t border-gray-200">
-                                <a href="{{ route('profile.edit') }}" 
+                                <a href="{{ route('customer.profile.edit') }}" 
                                    class="text-sm text-blue-600 hover:text-blue-800 font-medium">
                                     Edit Profil →
                                 </a>
@@ -196,7 +196,7 @@
                         </div>
                         <div class="p-6">
                             <div class="space-y-3">
-                                <a href="{{ route('reservations.create') }}" 
+                                <a href="{{ route('customer.reservations.create') }}" 
                                    class="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition duration-150">
                                     <div class="p-2 rounded-full bg-blue-100">
                                         <i class="fas fa-plus text-blue-600"></i>
@@ -206,7 +206,7 @@
                                     </div>
                                 </a>
                                 
-                                <a href="{{ route('reservations.index') }}" 
+                                <a href="{{ route('customer.reservations.index') }}" 
                                    class="flex items-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition duration-150">
                                     <div class="p-2 rounded-full bg-green-100">
                                         <i class="fas fa-list text-green-600"></i>
