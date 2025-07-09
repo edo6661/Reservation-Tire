@@ -30,6 +30,10 @@ class ContactService implements ContactServiceInterface
     {
         return $this->contactRepository->getUnansweredPaginated($perPage);
     }
+    public function getAnsweredContacts(int $perPage = 15): LengthAwarePaginator
+    {
+        return $this->contactRepository->getByStatusPaginated(ContactSituation::ANSWERED, $perPage);
+    }
 
     public function getContactById(int $id): ?Contact
     {

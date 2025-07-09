@@ -24,12 +24,19 @@ class ContactRepository implements ContactRepositoryInterface
     }
 
     public function getAllPaginated(int $perPage = 15): LengthAwarePaginator
+{
+    return $this->model->with(['reception'])
+        ->orderBy('created_at', 'desc')
+        ->paginate($perPage);
+}
+
+    public function getByStatusPaginated(string $status, int $perPage = 15): LengthAwarePaginator
     {
         return $this->model->with(['reception'])
+            ->where('situation', $status)
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
     }
-
     public function getUnansweredPaginated(int $perPage = 15): LengthAwarePaginator
     {
         return $this->model->with(['reception'])

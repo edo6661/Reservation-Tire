@@ -109,9 +109,9 @@
                                             <div class="flex-1">
                                                 <div class="flex items-center">
                                                     <h3 class="text-lg font-medium text-gray-900">{{ $contact->title }}</h3>
-                                                    <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                                        {{ $contact->situation === 'answered' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                                        {{ $contact->situation === 'answered' ? 'Sudah Dijawab' : 'Belum Dijawab' }}
+                                                     <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                                        {{ $contact->situation === App\Enums\ContactSituation::ANSWERED ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                        {{ $contact->situation === App\Enums\ContactSituation::ANSWERED ? 'Sudah Dijawab' : 'Belum Dijawab' }}
                                                     </span>
                                                 </div>
                                                 <p class="mt-1 text-sm text-gray-600">Dari: {{ $contact->sender }}</p>
