@@ -1,18 +1,18 @@
 {{-- resources/views/admin/reservations/index.blade.php --}}
 <x-layouts.app>
-    <div class="min-h-screen bg-gray-50 py-8">
+    <div class="min-h-screen py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
             <div class="mb-8">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900">Manajemen Reservasi</h1>
-                        <p class="mt-2 text-sm text-gray-600">Kelola semua reservasi pelanggan</p>
+                        <h1 class="text-3xl font-bold text-gray-900">Reservation Management</h1>
+                        <p class="mt-2 text-sm text-gray-600">Manage all customer reservations</p>
                     </div>
                     <a href="{{ route('admin.reservations.create') }}" 
                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium inline-flex items-center">
                         <i class="fas fa-plus mr-2"></i>
-                        Tambah Reservasi
+                        Add Reservation
                     </a>
                 </div>
             </div>
@@ -48,22 +48,22 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Pelanggan
+                                    Customer
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Layanan
+                                    Service
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Tanggal & Waktu
+                                    Date & Time
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Status
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Kontak
+                                    Contact
                                 </th>
                                 <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Aksi
+                                    Actions
                                 </th>
                             </tr>
                         </thead>
@@ -105,19 +105,19 @@
                                             @case('application')
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                                                     <i class="fas fa-clock mr-1"></i>
-                                                    Menunggu
+                                                    Pending
                                                 </span>
                                                 @break
                                             @case('confirmed')
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                                     <i class="fas fa-check mr-1"></i>
-                                                    Dikonfirmasi
+                                                    Confirmed
                                                 </span>
                                                 @break
                                             @case('rejected')
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                                     <i class="fas fa-times mr-1"></i>
-                                                    Ditolak
+                                                    Rejected
                                                 </span>
                                                 @break
                                         @endswitch
@@ -140,14 +140,14 @@
                                                 <form method="POST" action="{{ route('admin.reservations.confirm', $reservation->id) }}" class="inline">
                                                     @csrf
                                                     <button type="submit" class="text-green-600 hover:text-green-900" 
-                                                            onclick="return confirm('Yakin ingin mengkonfirmasi reservasi ini?')">
+                                                            onclick="return confirm('Are you sure you want to confirm this reservation?')">
                                                         <i class="fas fa-check"></i>
                                                     </button>
                                                 </form>
                                                 <form method="POST" action="{{ route('admin.reservations.reject', $reservation->id) }}" class="inline">
                                                     @csrf
                                                     <button type="submit" class="text-red-600 hover:text-red-900" 
-                                                            onclick="return confirm('Yakin ingin menolak reservasi ini?')">
+                                                            onclick="return confirm('Are you sure you want to reject this reservation?')">
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </form>
@@ -157,7 +157,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 hover:text-red-900" 
-                                                        onclick="return confirm('Yakin ingin menghapus reservasi ini?')">
+                                                        onclick="return confirm('Are you sure you want to delete this reservation?')">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>
@@ -169,8 +169,8 @@
                                     <td colspan="6" class="px-6 py-4 whitespace-nowrap text-center text-gray-500">
                                         <div class="flex flex-col items-center py-8">
                                             <i class="fas fa-calendar-times text-4xl text-gray-400 mb-4"></i>
-                                            <p class="text-lg font-medium text-gray-900 mb-2">Belum ada reservasi</p>
-                                            <p class="text-sm text-gray-500">Reservasi akan muncul di sini setelah pelanggan membuat reservasi</p>
+                                            <p class="text-lg font-medium text-gray-900 mb-2">No reservations yet</p>
+                                            <p class="text-sm text-gray-500">Reservations will appear here once customers make a booking</p>
                                         </div>
                                     </td>
                                 </tr>

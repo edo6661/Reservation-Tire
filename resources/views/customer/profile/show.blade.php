@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <div class="min-h-screen bg-gray-50 py-8">
+    <div class="min-h-screen py-8">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm rounded-lg mb-6">
                 <div class="px-6 py-4 border-b border-gray-200">
