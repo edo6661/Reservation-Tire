@@ -1,7 +1,6 @@
 <x-layouts.app>
     <div class="min-h-screen py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
             <div class="bg-white shadow-sm rounded-lg p-6 mb-6">
                 <div class="flex justify-between items-center">
                     <div>
@@ -16,7 +15,6 @@
                 </div>
             </div>
 
-            <!-- Alert Messages -->
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
                     <i class="fas fa-check-circle mr-2"></i>
@@ -31,7 +29,6 @@
                 </div>
             @endif
 
-            <!-- Reservations List -->
             <div class="bg-white shadow-sm rounded-lg overflow-hidden">
                 @if($reservations->count() > 0)
                     <div class="overflow-x-auto">

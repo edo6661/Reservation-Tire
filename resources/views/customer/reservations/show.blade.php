@@ -1,7 +1,6 @@
 <x-layouts.app>
     <div class="min-h-screen py-8">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
             <div class="mb-8">
                 <div class="flex items-center justify-between">
                     <div>
@@ -16,7 +15,6 @@
                 </div>
             </div>
 
-            <!-- Alert Messages -->
             @if(session('success'))
                 <div class="mb-6 bg-green-50 border border-green-200 rounded-md p-4">
                     <div class="flex">
@@ -47,9 +45,7 @@
                 </div>
             @endif
 
-            <!-- Reservation Card -->
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                <!-- Status Banner -->
                 <div class="px-4 py-5 sm:px-6 {{ $reservation->status->value === 'confirmed' ? 'bg-green-50' : ($reservation->status->value === 'rejected' ? 'bg-red-50' : 'bg-yellow-50') }}">
                     <div class="flex items-center justify-between">
                         <div>
@@ -82,7 +78,6 @@
                     </div>
                 </div>
 
-                <!-- Reservation Details -->
                 <div class="border-t border-gray-200">
                     <dl>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -147,7 +142,6 @@
                     </dl>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                     <div class="flex justify-between">
                         <div>

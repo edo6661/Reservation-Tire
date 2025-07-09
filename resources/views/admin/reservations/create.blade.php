@@ -1,8 +1,6 @@
-{{-- resources/views/admin/reservations/create.blade.php --}}
 <x-layouts.app>
     <div class="min-h-screen py-8">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
             <div class="mb-8">
                 <div class="flex items-center">
                     <a href="{{ route('admin.reservations.index') }}" 
@@ -16,7 +14,6 @@
                 </div>
             </div>
 
-            <!-- Error Messages -->
             @if($errors->any())
                 <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
                     <div class="flex items-center">
@@ -30,12 +27,10 @@
                 </div>
             @endif
 
-            <!-- Form -->
             <div class="bg-white rounded-lg shadow-md p-6" x-data="reservationForm()">
                 <form method="POST" action="{{ route('admin.reservations.store') }}">
                     @csrf
                     
-                    <!-- Service Selection -->
                     <div class="mb-6">
                         <label for="service" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-tools mr-2"></i>Layanan
@@ -61,7 +56,6 @@
                         </select>
                     </div>
 
-                    <!-- Date and Time -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label for="date" class="block text-sm font-medium text-gray-700 mb-2">
@@ -89,10 +83,8 @@
                         </div>
                     </div>
 
-                    <!-- Hidden datetime field -->
                     <input type="hidden" name="datetime" :value="selectedDate + ' ' + selectedTime">
 
-                    <!-- Customer Contact -->
                     <div class="mb-6">
                         <label for="customer_contact" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-phone mr-2"></i>Kontak Pelanggan
@@ -103,7 +95,6 @@
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     </div>
 
-                    <!-- Customer Selection -->
                     <div class="mb-6">
                         <label for="customer_id" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-user mr-2"></i>Pelanggan (Opsional)
@@ -120,7 +111,6 @@
                         <p class="mt-1 text-sm text-gray-500">Pilih pelanggan yang sudah terdaftar atau biarkan kosong untuk pelanggan baru</p>
                     </div>
 
-                    <!-- Coupon Code -->
                     <div class="mb-6">
                         <label for="coupon_code" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-ticket-alt mr-2"></i>Kode Kupon (Opsional)
@@ -131,7 +121,6 @@
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     </div>
 
-                    <!-- Simple Questionnaire -->
                     <div class="mb-6">
                         <label for="simple_questionnaire" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-clipboard-question mr-2"></i>Kuesioner Sederhana (Opsional)
@@ -141,7 +130,6 @@
                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('simple_questionnaire') }}</textarea>
                     </div>
 
-                    <!-- Submit Button -->
                     <div class="flex justify-end space-x-4">
                         <a href="{{ route('admin.reservations.index') }}" 
                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">

@@ -1,8 +1,6 @@
-{{-- resources/views/customer/contacts/index.blade.php --}}
 <x-layouts.app>
     <div class="min-h-screen py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
             <div class="mb-8">
                 <div class="flex items-center justify-between">
                     <div>
@@ -17,7 +15,6 @@
                 </div>
             </div>
 
-            <!-- Alert Messages -->
             @if(session('success'))
                 <div class="mb-6 bg-green-50 border border-green-200 rounded-md p-4">
                     <div class="flex">
@@ -27,7 +24,6 @@
                 </div>
             @endif
 
-            <!-- Contacts List -->
             @if($contacts->count() > 0)
                 <div class="bg-white shadow overflow-hidden rounded-lg">
                     <ul class="divide-y divide-gray-200">
@@ -67,7 +63,6 @@
                     </ul>
                 </div>
                 
-                <!-- Pagination -->
                 <div class="mt-6">
                     {{ $contacts->links() }}
                 </div>

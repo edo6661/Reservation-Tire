@@ -1,7 +1,5 @@
-{{-- resources/views/admin/users/index.blade.php --}}
 <x-layouts.app>
     <div class="min-h-screen bg-gray-50">
-        <!-- Header -->
         <div class="bg-white shadow-sm border-b">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="py-6">
@@ -20,9 +18,7 @@
             </div>
         </div>
 
-        <!-- Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Alert Messages -->
             @if(session('success'))
                 <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
                      class="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
@@ -53,7 +49,6 @@
                 </div>
             @endif
 
-            <!-- Users Table -->
             <div class="bg-white shadow-sm rounded-lg overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h2 class="text-lg font-medium text-gray-900">Daftar User</h2>
@@ -150,7 +145,6 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
                 @if($users->hasPages())
                     <div class="px-6 py-4 border-t border-gray-200">
                         <div class="flex items-center justify-between">

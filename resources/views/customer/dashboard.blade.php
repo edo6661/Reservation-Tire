@@ -1,7 +1,5 @@
-{{-- resources/views/customer/dashboard.blade.php --}}
 <x-layouts.app>
     <div class="min-h-screen bg-gray-50">
-        <!-- Header -->
         <div class="bg-white shadow-sm border-b">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="py-6">
@@ -18,11 +16,8 @@
             </div>
         </div>
 
-        <!-- Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Stats Overview -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <!-- Total Reservations -->
                 <div class="bg-white rounded-lg shadow-sm p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-full bg-blue-100">
@@ -35,7 +30,6 @@
                     </div>
                 </div>
 
-                <!-- Active Reservations -->
                 <div class="bg-white rounded-lg shadow-sm p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-full bg-green-100">
@@ -50,7 +44,6 @@
                     </div>
                 </div>
 
-                <!-- Pending Reservations -->
                 <div class="bg-white rounded-lg shadow-sm p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-full bg-yellow-100">
@@ -66,9 +59,7 @@
                 </div>
             </div>
 
-            <!-- Main Content Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Reservations List -->
                 <div class="lg:col-span-2">
                     <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
@@ -157,9 +148,7 @@
                     </div>
                 </div>
 
-                <!-- Sidebar -->
                 <div class="space-y-6">
-                    <!-- Profile Card -->
                     <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900">Profil Saya</h3>
@@ -201,7 +190,6 @@
                         </div>
                     </div>
 
-                    <!-- Quick Actions -->
                     <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900">Aksi Cepat</h3>
@@ -241,7 +229,6 @@
                         </div>
                     </div>
 
-                    <!-- Recent Activity -->
                     <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900">Aktivitas Terbaru</h3>
@@ -285,7 +272,6 @@
         </div>
     </div>
 
-    <!-- Cancel Reservation Modal -->
     <div id="cancelModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden" style="z-index: 50;">
         <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 transition-opacity" aria-hidden="true">

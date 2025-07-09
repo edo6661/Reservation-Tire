@@ -1,7 +1,5 @@
-{{-- resources/views/admin/users/create.blade.php --}}
 <x-layouts.app>
     <div class="min-h-screen bg-gray-50">
-        <!-- Header -->
         <div class="bg-white shadow-sm border-b">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="py-6">
@@ -20,9 +18,7 @@
             </div>
         </div>
 
-        <!-- Content -->
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Alert Messages -->
             @if($errors->any())
                 <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
                      class="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
@@ -40,7 +36,6 @@
                 </div>
             @endif
 
-            <!-- Create Form -->
             <div class="bg-white shadow-sm rounded-lg overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h2 class="text-lg font-medium text-gray-900">Informasi User</h2>
@@ -49,7 +44,6 @@
                 <form method="POST" action="{{ route('admin.users.store') }}" class="p-6 space-y-6">
                     @csrf
                     
-                    <!-- Name Field -->
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
                             Nama Lengkap <span class="text-red-500">*</span>
@@ -66,7 +60,6 @@
                         @enderror
                     </div>
 
-                    <!-- Email Field -->
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                             Email <span class="text-red-500">*</span>
@@ -83,7 +76,6 @@
                         @enderror
                     </div>
 
-                    <!-- Password Field -->
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                             Password <span class="text-red-500">*</span>
@@ -107,7 +99,6 @@
                         @enderror
                     </div>
 
-                    <!-- Password Confirmation Field -->
                     <div>
                         <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
                             Konfirmasi Password <span class="text-red-500">*</span>
@@ -120,7 +111,6 @@
                                required>
                     </div>
 
-                    <!-- Role Field -->
                     <div>
                         <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
                             Role <span class="text-red-500">*</span>
@@ -138,7 +128,6 @@
                         @enderror
                     </div>
 
-                    <!-- Submit Buttons -->
                     <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
                         <a href="{{ route('admin.users.index') }}" 
                            class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150">

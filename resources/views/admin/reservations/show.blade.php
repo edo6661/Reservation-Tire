@@ -1,8 +1,6 @@
-{{-- resources/views/admin/reservations/show.blade.php --}}
 <x-layouts.app>
     <div class="min-h-screen py-8">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
             <div class="mb-8">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
@@ -45,7 +43,6 @@
                 </div>
             </div>
 
-            <!-- Success Message -->
             @if(session('success'))
                 <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
                     <div class="flex items-center">
@@ -55,7 +52,6 @@
                 </div>
             @endif
 
-            <!-- Error Message -->
             @if($errors->any())
                 <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
                     <div class="flex items-center">
@@ -70,9 +66,7 @@
             @endif
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Main Content -->
                 <div class="lg:col-span-2 space-y-6">
-                    <!-- Reservation Details -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">
                             <i class="fas fa-calendar-alt mr-2"></i>Informasi Reservasi
@@ -136,7 +130,6 @@
                         </div>
                     </div>
 
-                    <!-- Questionnaire -->
                     @if($reservation->simple_questionnaire)
                         <div class="bg-white rounded-lg shadow-md p-6">
                             <h2 class="text-xl font-semibold text-gray-900 mb-4">
@@ -148,7 +141,6 @@
                         </div>
                     @endif
 
-                    <!-- Management Notes -->
                     @if($reservation->management_notes)
                         <div class="bg-white rounded-lg shadow-md p-6">
                             <h2 class="text-xl font-semibold text-gray-900 mb-4">
@@ -161,9 +153,7 @@
                     @endif
                 </div>
 
-                <!-- Sidebar -->
                 <div class="space-y-6">
-                    <!-- Customer Info -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">
                             <i class="fas fa-user mr-2"></i>Informasi Pelanggan
@@ -199,7 +189,6 @@
                         </div>
                     </div>
 
-                    <!-- Timeline -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">
                             <i class="fas fa-history mr-2"></i>Timeline

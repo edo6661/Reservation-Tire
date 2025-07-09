@@ -1,7 +1,5 @@
-{{-- resources/views/admin/users/edit.blade.php --}}
 <x-layouts.app>
     <div class="min-h-screen bg-gray-50">
-        <!-- Header -->
         <div class="bg-white shadow-sm border-b">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="py-6">
@@ -27,9 +25,7 @@
             </div>
         </div>
 
-        <!-- Content -->
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Alert Messages -->
             @if(session('success'))
                 <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
                      class="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
@@ -60,7 +56,6 @@
                 </div>
             @endif
 
-            <!-- Edit Form -->
             <div class="bg-white shadow-sm rounded-lg overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h2 class="text-lg font-medium text-gray-900">Edit Informasi User</h2>
@@ -70,7 +65,6 @@
                     @csrf
                     @method('PUT')
                     
-                    <!-- Name Field -->
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
                             Nama Lengkap <span class="text-red-500">*</span>
@@ -87,7 +81,6 @@
                         @enderror
                     </div>
 
-                    <!-- Email Field -->
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                             Email <span class="text-red-500">*</span>
@@ -104,7 +97,6 @@
                         @enderror
                     </div>
 
-                    <!-- Password Field -->
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                             Password Baru
@@ -128,7 +120,6 @@
                         @enderror
                     </div>
 
-                    <!-- Password Confirmation Field -->
                     <div>
                         <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
                             Konfirmasi Password Baru
@@ -140,7 +131,6 @@
                                placeholder="Konfirmasi password baru">
                     </div>
 
-                    <!-- Role Field -->
                     <div>
                         <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
                             Role <span class="text-red-500">*</span>
@@ -158,7 +148,6 @@
                         @enderror
                     </div>
 
-                    <!-- Info Box -->
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                         <div class="flex items-start">
                             <i class="fas fa-info-circle text-blue-600 mr-2 mt-0.5"></i>
@@ -175,7 +164,6 @@
                         </div>
                     </div>
 
-                    <!-- Submit Buttons -->
                     <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
                         <a href="{{ route('admin.users.show', $user->id) }}" 
                            class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150">

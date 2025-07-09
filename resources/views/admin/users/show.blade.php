@@ -1,6 +1,5 @@
 <x-layouts.app>
     <div class="min-h-screen bg-gray-50">
-        <!-- Header -->
         <div class="bg-white shadow-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
@@ -23,11 +22,9 @@
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <div class="px-4 py-6 sm:px-0">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- User Information Card -->
                     <div class="lg:col-span-2">
                         <div class="bg-white overflow-hidden shadow rounded-lg">
                             <div class="px-4 py-5 sm:px-6">
@@ -97,7 +94,6 @@
                         </div>
                     </div>
 
-                    <!-- Actions Card -->
                     <div class="lg:col-span-1">
                         <div class="bg-white overflow-hidden shadow rounded-lg">
                             <div class="px-4 py-5 sm:px-6">
@@ -128,7 +124,6 @@
                                             Hapus User
                                         </button>
                                         
-                                        <!-- Confirmation Modal -->
                                         <div x-show="showConfirm" 
                                              x-transition:enter="ease-out duration-300"
                                              x-transition:enter-start="opacity-0"
@@ -181,7 +176,6 @@
                     </div>
                 </div>
 
-                <!-- Customer Information (if user is customer) -->
                 @if($user->role == 'customer' && $user->customer)
                 <div class="mt-6">
                     <div class="bg-white overflow-hidden shadow rounded-lg">
@@ -217,7 +211,6 @@
                 </div>
                 @endif
 
-                <!-- Recent Reservations (if user is customer) -->
                 @if($user->role == 'customer' && $user->customer && $user->customer->reservations->count() > 0)
                 <div class="mt-6">
                     <div class="bg-white overflow-hidden shadow rounded-lg">

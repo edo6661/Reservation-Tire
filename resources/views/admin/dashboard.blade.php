@@ -1,7 +1,5 @@
-{{-- resources/views/admin/dashboard.blade.php --}}
 <x-layouts.app>
     <div class="min-h-screen bg-gray-50">
-        <!-- Header -->
         <div class="bg-white shadow-sm border-b">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="py-6">
@@ -18,11 +16,8 @@
             </div>
         </div>
 
-        <!-- Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Stats Overview -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- Total Users -->
                 <div class="bg-white rounded-lg shadow-sm p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-full bg-blue-100">
@@ -41,7 +36,6 @@
                     </div>
                 </div>
 
-                <!-- Total Customers -->
                 <div class="bg-white rounded-lg shadow-sm p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-full bg-green-100">
@@ -60,7 +54,6 @@
                     </div>
                 </div>
 
-                <!-- Total Reservations -->
                 <div class="bg-white rounded-lg shadow-sm p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-full bg-yellow-100">
@@ -79,7 +72,6 @@
                     </div>
                 </div>
 
-                <!-- Unanswered Contacts -->
                 <div class="bg-white rounded-lg shadow-sm p-6">
                     <div class="flex items-center">
                         <div class="p-3 rounded-full bg-red-100">
@@ -99,9 +91,7 @@
                 </div>
             </div>
 
-            <!-- Quick Actions -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Quick Actions Card -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-200">
                         <h3 class="text-lg font-medium text-gray-900">Quick Actions</h3>
@@ -155,7 +145,6 @@
                     </div>
                 </div>
 
-                <!-- Recent Activity -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-200">
                         <h3 class="text-lg font-medium text-gray-900">Recent Activity</h3>

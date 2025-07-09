@@ -1,8 +1,6 @@
-{{-- resources/views/admin/contacts/show.blade.php --}}
 <x-layouts.app>
     <div class="min-h-screen py-8">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
             <div class="mb-8">
                 <div class="flex items-center justify-between">
                     <div>
@@ -17,7 +15,6 @@
                 </div>
             </div>
 
-            <!-- Alert Messages -->
             @if(session('success'))
                 <div class="mb-6 bg-green-50 border border-green-200 rounded-md p-4">
                     <div class="flex">
@@ -40,7 +37,6 @@
                 </div>
             @endif
 
-            <!-- Contact Message -->
             <div class="bg-white shadow rounded-lg mb-8">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <div class="flex items-center justify-between">
@@ -73,9 +69,7 @@
                 </div>
             </div>
 
-            <!-- Answer Section -->
             @if($contact->situation === 'answered')
-                <!-- Show Answer -->
                 <div class="bg-white shadow rounded-lg mb-8">
                     <div class="px-6 py-4 border-b border-gray-200">
                         <h3 class="text-lg font-medium text-gray-900">Jawaban</h3>
@@ -96,7 +90,6 @@
                     </div>
                 </div>
             @else
-                <!-- Answer Form -->
                 <div class="bg-white shadow rounded-lg">
                     <div class="px-6 py-4 border-b border-gray-200">
                         <h3 class="text-lg font-medium text-gray-900">Balas Pesan</h3>
@@ -147,7 +140,6 @@
                 </div>
             @endif
 
-            <!-- Delete Button -->
             <div class="mt-8 flex justify-end">
                 <form method="POST" action="{{ route('admin.contacts.destroy', $contact->id) }}" 
                       onsubmit="return confirm('Yakin ingin menghapus pesan ini? Tindakan ini tidak dapat dibatalkan.')" 

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Admin - Laravel</title>
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-
-        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-            @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @endif
-    </head>
-    <body class="bg-gray-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin - Laravel</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+    
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
+</head>
+<body class="bg-gray-100">
+    @if(auth()->check() && auth()->user()->isAdmin())
         <div class="flex min-h-screen" x-data="{ sidebarOpen: true }" x-cloak>
             <div class="bg-white shadow-lg fixed h-full z-30 transition-all duration-300 ease-in-out" 
                  :class="sidebarOpen ? 'w-64' : 'w-16'">
@@ -57,7 +57,7 @@
                         </a>
 
                         <a href="{{ route('admin.reservations.index') }}" 
-                           class="flex items-center py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200 {{ request()->routeIs('admin.reservations.*') ? 'bg-blue-50 text-blue-600 border-r-4 border-blue-600' : '' }}"
+                           class="flex items-center py-3 text-gray-700 rounded-2 hover:bg-blue-50 hover:text-blue-600 transition duration-200 {{ request()->routeIs('admin.reservations.*') ? 'bg-blue-50 text-blue-600 border-r-4 border-blue-600' : '' }}"
                            :class="sidebarOpen ? 'px-4' : 'px-2 justify-center'"
                            :title="!sidebarOpen ? 'Manage Reservations' : ''">
                             <i class="fas fa-calendar-alt" :class="sidebarOpen ? 'mr-3' : 'text-lg'"></i>
@@ -99,7 +99,7 @@
                             <i class="fas fa-user text-white"></i>
                         </div>
                         <div class="ml-3 flex-1" x-show="sidebarOpen">
-                            <p class="text-sm font-medium text-gray-700">{{ auth()->user()->name }}</p>
+                            <p class="text-sm font-medium text-gray-700">{{ auth()->user()->name ?? 'Admin' }}</p>
                             <p class="text-xs text-gray-500">Administrator</p>
                         </div>
                         <div class="relative" x-data="{ open: false }" x-show="sidebarOpen">
@@ -110,7 +110,7 @@
                                 <a href="{{ route('admin.profile.show') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                     <i class="fas fa-user mr-2"></i>Profile
                                 </a>
-                                <a href="{{ route('admin.profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{{ route('admin.profile.edit') }}" class="block px-4 py-2 text-sm text-gray-2700 hover:bg-gray-100">
                                     <i class="fas fa-edit mr-2"></i>Edit Profile
                                 </a>
                                 <hr class="my-1">
@@ -157,59 +157,106 @@
                     </div>
                 </main>
             </div>
-        </div>
 
-        <!-- Mobile sidebar and overlay -->
-        <div class="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-20" 
-             x-data="{ showMobile: false }" 
-             x-show="showMobile" 
-             @toggle-mobile-sidebar.window="showMobile = !showMobile" 
-             @click="showMobile = false"></div>
+            <div class="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-20" 
+                 x-data="{ showMobile: false }" 
+                 x-show="showMobile" 
+                 @toggle-mobile-sidebar.window="showMobile = !showMobile" 
+                 @click="showMobile = false"></div>
 
-        <div class="lg:hidden fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-xl transform -translate-x-full transition-transform duration-300" 
-             x-data="{ showMobile: false }" 
-             x-show="showMobile" 
-             @toggle-mobile-sidebar.window="showMobile = !showMobile" 
-             :class="{ 'translate-x-0': showMobile }">
-            <div class="flex items-center justify-between h-16 px-4 bg-blue-600 text-white">
-                <div class="flex items-center">
-                    <i class="fas fa-cog mr-2"></i>
-                    <span class="text-lg font-semibold">Admin Panel</span>
+            <div class="lg:hidden fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-xl transform -translate-x-full transition-transform duration-300" 
+                 x-data="{ showMobile: false }" 
+                 x-show="showMobile" 
+                 @toggle-mobile-sidebar.window="showMobile = !showMobile" 
+                 :class="{ 'translate-x-0': showMobile }">
+                <div class="flex items-center justify-between h-16 px-4 bg-blue-600 text-white">
+                    <div class="flex items-center">
+                        <i class="fas fa-cog mr-2"></i>
+                        <span class="text-lg font-semibold">Admin Panel</span>
+                    </div>
+                    <button @click="showMobile = false">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <button @click="showMobile = false">
-                    <i class="fas fa-times"></i>
-                </button>
+
+                <nav class="mt-8 px-4">
+                    <div class="space-y-2">
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
+                            <i class="fas fa-tachometer-alt mr-3"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="{{ route('admin.users.index') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
+                            <i class="fas fa-users mr-3"></i>
+                            <span>Manage Users</span>
+                        </a>
+                        <a href="{{ route('admin.reservations.index') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
+                            <i class="fas fa-calendar-alt mr-3"></i>
+                            <span>Manage Reservations</span>
+                        </a>
+                        <a href="{{ route('admin.contacts.index') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>Manage Contacts</span>
+                        </a>
+                        <hr class="my-4 border-gray-200">
+                        <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
+                            <i class="fas fa-chart-bar mr-3"></i>
+                            <span>Reports</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
+                            <i class="fas fa-cogs mr-3"></i>
+                            <span>Settings</span>
+                        </a>
+                    </div>
+                </nav>
             </div>
-
-            <nav class="mt-8 px-4">
-                <div class="space-y-2">
-                    <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
-                        <i class="fas fa-tachometer-alt mr-3"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    <a href="{{ route('admin.users.index') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
-                        <i class="fas fa-users mr-3"></i>
-                        <span>Manage Users</span>
-                    </a>
-                    <a href="{{ route('admin.reservations.index') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
-                        <i class="fas fa-calendar-alt mr-3"></i>
-                        <span>Manage Reservations</span>
-                    </a>
-                    <a href="{{ route('admin.contacts.index') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
-                        <i class="fas fa-envelope mr-3"></i>
-                        <span>Manage Contacts</span>
-                    </a>
-                    <hr class="my-4 border-gray-200">
-                    <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
-                        <i class="fas fa-chart-bar mr-3"></i>
-                        <span>Reports</span>
-                    </a>
-                    <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
-                        <i class="fas fa-cogs mr-3"></i>
-                        <span>Settings</span>
-                    </a>
-                </div>
-            </nav>
         </div>
-    </body>
+    @else
+        <div class="min-h-screen">
+            <header class="bg-white shadow-sm border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between h-16">
+                        <div class="flex-1">
+                            <h1 class="text-2xl font-semibold text-gray-900">
+                                Reservation
+                            </h1>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            @if(auth()->check())
+                                <span class="text-sm text-gray-500">{{ auth()->user()->name }}</span>
+                                <form method="POST" action="{{ route('logout') }}" class="inline">
+                                    @csrf
+                                    <button type="submit" class="text-sm text-red-600 hover:text-red-800">
+                                        Logout
+                                    </button>
+                                </form>
+                            @else
+                                <a href="{{ route('login') }}" class="text-sm text-blue-600 hover:text-blue-800">
+                                    Login
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                @if (session('success'))
+                    <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                        <span class="block sm:inline">{{ session('success') }}</span>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <span class="block sm:inline">{{ session('error') }}</span>
+                    </div>
+                @endif
+
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    {{ $slot }}
+                </div>
+            </main>
+        </div>
+    @endif
+</body>
 </html>
