@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Enums\ServiceType;
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', ['services' => ServiceType::cases()]);
 })->name('home');
 
 require __DIR__.'/auth.php';

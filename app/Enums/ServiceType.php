@@ -30,4 +30,14 @@ enum ServiceType: string
             self::TIRE_CHANGE_BYOB => 'Tire Change (BYOB)',
         };
     }
+    public function time(): int
+    {
+        return match($this) {
+            self::TIRE_INSTALLATION_PURCHASED => 50,
+            self::TIRE_REPLACEMENT_SHIPPED => 50,
+            self::OIL_CHANGE => 40,
+            self::TIRE_STORAGE_REPLACEMENT => 40,
+            self::TIRE_CHANGE_BYOB => 30,
+        };
+    }
 }
